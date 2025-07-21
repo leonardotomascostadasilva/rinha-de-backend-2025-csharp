@@ -45,6 +45,7 @@ var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
+app.MapGet("/health", () => Results.Ok("OK"));
 
 app.MapPost("/payments", (
     [FromBody] PaymentRequest request,
