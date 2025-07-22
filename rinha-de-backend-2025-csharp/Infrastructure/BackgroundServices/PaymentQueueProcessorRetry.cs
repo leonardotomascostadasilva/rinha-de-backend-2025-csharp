@@ -18,13 +18,13 @@ namespace rinha_de_backend_2025.Infrastructure.BackgroundServices
             _serviceProvider = serviceProvider;
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var workers = Enumerable
                 .Range(0, 2)
                 .Select(_ => Task.Run(() => ProcessPaymentItemAsync(stoppingToken), stoppingToken));
 
-            return Task.WhenAll(workers);
+            await Task.WhenAll(workers);
         }
 
         private async Task ProcessPaymentItemAsync(CancellationToken cancellationToken)
